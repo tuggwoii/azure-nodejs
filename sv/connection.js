@@ -1,0 +1,2 @@
+var sql = require('node-sqlserver');
+var conn_str = "Driver={SQL Server Native Client 11.0};Server=tcp:tuggdevdb.database.windows.net,1433;Database=devdb;Uid=tugg@tuggdevdb;Pwd={Pass1234};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;";
