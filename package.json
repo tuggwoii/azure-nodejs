@@ -9,8 +9,14 @@
   "author": "TuGG",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.15.0",
     "ejs": "^2.3.4",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "sequelize": "^3.19.3",
+    "sequelize-cli": "^2.3.1",
+    "shortid": "^2.2.4",
+    "tedious": "^1.13.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

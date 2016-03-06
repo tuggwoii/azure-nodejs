@@ -1,2 +1,15 @@
-var sql = require('node-sqlserver');
-var conn_str = "Driver={SQL Server Native Client 11.0};Server=tcp:tuggdevdb.database.windows.net,1433;Database=devdb;Uid=tugg@tuggdevdb;Pwd={Pass1234};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;";
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize('devdb', 'tugg@tuggdevdb', 'Pass1234', {
+    host: 'tuggdevdb.database.windows.net',
+    dialect: 'mssql',
+    pool: {
+        maxConnections: 100,
+        minConnections: 0,
+        maxIdleTime: 10000
+    },
+    dialectOptions: {
+      encrypt: true
+    },
+    omitNull: true
+});
+module.exports = sequelize;
