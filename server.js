@@ -22,7 +22,14 @@ app.get('/', function (req, res) {
 	res.status(200).render('index.html');
 });
 
+app.use(function (err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send('error');
+});
+
 app.listen(app.get('port'), function () {
     console.log('App is running on port ' + app.get('port'));
 });
+
+
  

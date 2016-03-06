@@ -9,9 +9,27 @@ module.exports = function () {
     var app = express();
 
     function serealizer(data) {
-        data['id'] = data['null'];
+        if (!data.id) {
+            if (data['null']) {
+                data['id'] = data['null'];
+            }
+            else {
+                data['id'] = 0;
+            }
+        }
         var json = JSON.stringify(data);
-        return JSON.stringify(data);
+        var model = JSON.parse(json);
+        console.log(model);
+        if (model.user) {
+            delete model.user['password'];
+            delete model.user['createdAt'];
+            delete model.user['updatedAt'];
+        }
+        if (model.category) {
+            delete model.category['createdAt'];
+            delete model.category['updatedAt'];
+        }
+        return JSON.stringify(model);
     }
 
     function serealizerList(collection) {
@@ -37,6 +55,23 @@ module.exports = function () {
         }));
     }
 
+    function responsePermission(res) {
+        res.status(401).json({
+            error: {
+                message: 'permission denied.'
+            }
+        });
+    }
+
+    function responseNotFound(res) {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(404).send(JSON.stringify({
+            error: {
+                message: 'Not found'
+            }
+        }));
+    }
+
     function responseError(res, error) {
         res.setHeader('Content-Type', 'application/json');
         res.status(500).send(JSON.stringify({
@@ -46,13 +81,9 @@ module.exports = function () {
         }));
     }
 
-    function responsePermission(res) {
-        res.status(401).json({
-            error: {
-                message: 'permission denied.'
-            }
-        });
-    }
+    function replaceAll(str, search, replacement) {
+        return str.split(search).join(replacement);
+    };
 
     //ACCOUNTS
     app.post('/login', function (req, res) {
@@ -81,7 +112,12 @@ module.exports = function () {
     //USERS
     app.get('/users/:id', function (req, res) {
         User.get(req.params.id).then(function (model) {
-            responseObject(res, model);
+            if (model) {
+                responseObject(res, model);
+            }
+            else {
+                responseNotFound(res);
+            }
         }).catch(function (err) {
             responseError(res, err.message);
         });
@@ -139,8 +175,8 @@ module.exports = function () {
 
     //ROLES
     app.get('/roles', function (req, res) {
-        models.Role.all().then(function (projects) {
-            responseList(res, projects);
+        models.Role.all().then(function (roles) {
+            responseList(res, roles);
         }).catch(function (err) {
             responseError(res, err.message);
         });
@@ -163,6 +199,101 @@ module.exports = function () {
             responseMessage(res, 'Name is required');
         }
     });
+
+    //CATEGORY
+    app.get('/categories', function (req, res) {
+        models.Category.all().then(function (categories) {
+            responseList(res, categories);
+        }).catch(function (err) {
+            responseError(res, err.message);
+        });
+    });
+
+    app.patch('/categories', function (req, res) {
+        if (req.body.id) {
+            var category = req.body;
+            models.Category.findById(category.id).then(function (resCategory) {
+                if (resCategory) {
+                    resCategory.updateAttributes(category).then(function (model) {
+                        responseObject(res, model);
+                    }).catch(function () {
+                        responseError(res, err.message);
+                    });
+                }
+                else {
+                    responseNotFound(res);
+                }
+            }).catch(function (err) {
+                responseError(res, err.message);
+            });
+        }
+    });
+
+    app.post('/categories', function (req, res) {
+        if (req.body.name) {
+            var sid = req.body.name;
+            sid = replaceAll(sid, '(', '');
+            sid = replaceAll(sid, ')', '');
+            sid = replaceAll(sid, '.', '');
+            sid = replaceAll(sid, ' & ', '-');
+            sid = replaceAll(sid, ' ', '-');
+            sid = replaceAll(sid, '/', '-');
+            sid = replaceAll(sid, ',', '-');
+            sid = sid.toLowerCase();
+            var category = {
+                name: req.body.name,
+                sid: sid,
+                description: req.body.description? req.body.description:''
+            };
+            models.Category.create(category, { isNewRecord: true })
+            .then(function (model) {
+                responseObject(res, model);
+            }).catch(function (err) {
+                responseError(res, err.message);
+            });
+        }
+        else {
+            responseMessage(res, 'Name is required');
+        }
+    });
+
+    //TOPICS
+    app.post('/topics', function (req, res) {
+        console.log(req.body);
+        if (req.body.title && req.body.message && req.body.post_by && req.body.topic_category) {
+            var topic = req.body;
+            topic.sid = shortid.generate();
+            models.Topic.create(topic, { isNewRecord: true })
+            .then(function (model) {
+                responseObject(res, model);
+            }).catch(function (err) {
+                responseError(res, err.message + ', maybe check post_by and topic_category');
+            });
+        }
+        else {
+            responseMessage(res, 'title/message/post_by/topic_category is required');
+        }
+    });
+
+    app.get('/topics/:id', function (req, res) {
+        console.log(req.params);
+        models.Topic.findById(req.params.id, {
+            include: [
+                { model: models.User },
+                { model: models.Category }
+            ]
+        }).then(function (model) {
+            if (model) {
+                responseObject(res, model);
+            }
+            else {
+                responseNotFound(res);
+            }
+        }).catch(function (err) {
+            responseError(res, err.message);
+        });
+    });
+
 
     return app; 
 }();
