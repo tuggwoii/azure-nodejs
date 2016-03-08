@@ -294,6 +294,57 @@ module.exports = function () {
         });
     });
 
+    app.get('/topics/category/:id', function (req, res) {
+        console.log(req.params);
+        models.Topic.findAll({
+            where: { topic_category: req.params.id },
+            include: [
+                { model: models.User, attributes: ['id','username', 'email'] }
+            ]
+        }).then(function (model) {
+            if (model) {
+                responseList(res, model);
+            }
+            else {
+                responseNotFound(res);
+            }
+        }).catch(function (err) {
+            responseError(res, err.message);
+        });
+    });
+
+    //TOPICS
+    app.post('/comments', function (req, res) {
+        if (req.body.topic_id && req.body.message && req.body.post_by) {
+            var comment = req.body;
+            models.Comment.create(comment, { isNewRecord: true })
+            .then(function (model) {
+                responseObject(res, model);
+            }).catch(function (err) {
+                responseError(res, err.message + ', maybe check post_by and topic_id');
+            });
+        }
+        else {
+            responseMessage(res, 'topic/message/post_by is required');
+        }
+    });
+
+    app.get('/comments/topic/:id', function (req, res) {
+        models.Comment.findAll({
+            where: { topic_id: req.params.id},
+            include: [
+                { model: models.User, attributes: ['id', 'username', 'email'] },
+            ]}).then(function (model) {
+            if (model) {
+                responseList(res, model);
+            }
+            else {
+                responseNotFound(res);
+            }
+        }).catch(function (err) {
+            responseError(res, err.message);
+        });
+    });
 
     return app; 
 }();

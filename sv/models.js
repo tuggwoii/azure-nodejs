@@ -131,12 +131,44 @@ var Topic = sequelize.define('topics', {
     freezeTableName: true
 });
 
+var Comment = sequelize.define('comments', {
+    id: {
+        type: Sequelize.INTEGER,
+        primaryKey: true,
+        field: 'id'
+    },
+    message: {
+        type: Sequelize.STRING,
+        field: 'message'
+    },
+    createdAt: {
+        type: Sequelize.DATE,
+        field: 'createdAt'
+    },
+    updatedAt: {
+        type: Sequelize.DATE,
+        field: 'updatedAt'
+    },
+    post_by: {
+        type: Sequelize.INTEGER,
+        field: 'userId'
+    },
+    topic_id: {
+        type: Sequelize.INTEGER,
+        field: 'topicId'
+    }
+}, {
+    freezeTableName: true
+});
+
 
 User.belongsTo(Role, { foreignKey: 'user_role' });
 Topic.belongsTo(User, { foreignKey: 'post_by' });
 Topic.belongsTo(Category, { foreignKey: 'topic_category' });
-
+Comment.belongsTo(User, { foreignKey: 'post_by' });
+Comment.belongsTo(Topic, { foreignKey: 'topic_id' });
 exports.User = User;
 exports.Role = Role;
 exports.Category = Category;
 exports.Topic = Topic;
+exports.Comment = Comment;

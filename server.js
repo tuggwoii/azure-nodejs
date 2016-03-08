@@ -9,12 +9,12 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.use('/libs', express.static(__dirname + '/node_modules'));
-app.use('/css', express.static(__dirname + '/src/static/css'));
-app.use('/js', express.static(__dirname + '/src/static/js'));
-app.use('/img', express.static(__dirname + '/src/static/img'));
-app.use('/favicon.ico', express.static(__dirname + '/src/static/img/favicon.ico'));
-app.use('/fonts', express.static(__dirname + '/src/static/fonts'));
-app.use('/resources', express.static(__dirname + '/src/static/resources'));
+app.use('/css', express.static(__dirname + '/front-end/css'));
+app.use('/js', express.static(__dirname + '/front-end/js'));
+app.use('/img', express.static(__dirname + '/front-end/img'));
+app.use('/favicon.ico', express.static(__dirname + '/front-end/img/favicon.ico'));
+app.use('/fonts', express.static(__dirname + '/front-end/fonts'));
+app.use('/resources', express.static(__dirname + '/front-end/resources'));
 app.use(bodyParser.json());
 app.use('/api/v1', api);
 
