@@ -88,8 +88,6 @@ footer {
     width:100%;
     color:#fff;
     padding: 20px 20px;
-    position:fixed;
-    bottom:0;
 }
 footer .contact {
     float:right;
