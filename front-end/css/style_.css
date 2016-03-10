@@ -27,30 +27,30 @@ body {
     margin:0;
     font-size:24px;
     font-family: 'thaisanalite';
-    color:#333;
+    background:#335070;
+    color:#eee;
     min-width:1430px;
 }
 h1 {
     font-size: 80px;
     font-family: gotham-light;
-    text-shadow: 1px 1px 1px #ccc;
+    text-shadow: 1px 1px 1px #222;
 }
 .category {
     display: inline-block;
     width: 120px;
     border-radius: 2%;
-    background:#aaa;
+    background:#335070;
     height: 120px;
     margin-top:10px;
     margin-left: 10px;
-    box-shadow: 1px 1px 10px #ccc;
+    box-shadow: 1px 1px 10px #333;
     cursor:pointer;
     float: left;
     padding: 15px 10px;
     text-align: center;
     line-height: 1;
     font-size: 22px;
-    color:#fff;
 }
 .category .fa {
     display:block;
@@ -60,9 +60,7 @@ h1 {
     margin-top:10px;
     display:inline-block;
 }
-.wraper {
-    margin-top:30px;
-}
+
 .main {
     padding-bottom:150px;
     margin-top:55px;
@@ -72,24 +70,23 @@ h1 {
     float:left; 
 }
 header {
-    background:rgba(255,255,255,0.8);
+    background:rgba(6,40,61,0.8);
     height: 70px;
     width:100%;
     color:#fff;
-    padding: 8px 20px;
-    box-shadow: 1px 1px 10px #333;
+    padding: 8px 20px
 }
 header p {
    font-size: 35px;
-   text-shadow:1px 1px 10px #ccc;
+   text-shadow:1px 1px 10px #222;
    margin-top: 5px;
    padding: 0 20px;
 }
 footer {
-    border-top:1px solid #ccc;
+    background-color:#282F39;
     height: 150px;
     width:100%;
-    color:#333;
+    color:#fff;
     padding: 20px 20px;
 }
 footer .contact {
@@ -135,10 +132,9 @@ footer .contact .fa-mobile {
     width:50px;
 }
 .logo .logo-text {
-    color: #aaa;
     position: relative;
     top: 3px;
-    text-shadow: 1px 1px 1px #ccc;
+    text-shadow: 2px 2px 15px #222;
 }
 .category-list {
     width: 550px;
@@ -149,8 +145,8 @@ footer .contact .fa-mobile {
     float:right;
     position: relative;
     top: 6px;
-    text-shadow: 1px 1px 1px #ccc;
-    color: #aaa;
+    text-shadow: 2px 2px 15px #222;
+    color: #405070;
     cursor:pointer;
 }
 .copyright {
@@ -174,17 +170,16 @@ footer .contact .fa-mobile {
     float:left;
     margin-left:10px;
     margin-top:30px;
-    box-shadow: 1px 1px 10px #ccc;
-    background: #aaa;
+    box-shadow: 1px 1px 10px #333;
+    background: #335070;
     text-align:center;
     font-size:50px;
     padding-top:60px;
     text-shadow: 1px 1px 1px #222;
-    color:#fff;
 }
 .slogan {
     font-size:30px;
-    text-shadow: 1px 1px 1px #ccc;
+    text-shadow: 1px 1px 1px #222;
 }
 .sponsor-A {
     padding-top:80px;
