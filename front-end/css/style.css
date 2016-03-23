@@ -28,7 +28,7 @@ body {
     font-size:24px;
     font-family: 'thaisanalite';
     color:#333;
-    min-width:1430px;
+    min-width:992px;
 }
 h1 {
     font-size: 80px;
@@ -61,15 +61,13 @@ h1 {
     display:inline-block;
 }
 .wraper {
-    margin-top:30px;
+    margin-top:50px;
 }
-.main {
-    padding-bottom:150px;
-    margin-top:55px;
-    min-height:850px;
+.section-title {
     margin-right: 0;
     margin-left: 0;
     float:left; 
+    width: calc(100% - 500px);
 }
 header {
     background:rgba(255,255,255,0.8);
@@ -87,10 +85,14 @@ header p {
 }
 footer {
     border-top:1px solid #ccc;
-    height: 150px;
+    height: 120px;
     width:100%;
-    color:#333;
-    padding: 20px 20px;
+    color:#fff;
+    padding: 10px 20px;
+    background:#333;
+}
+footer p {
+    margin:0;
 }
 footer .contact {
     float:right;
@@ -155,7 +157,7 @@ footer .contact .fa-mobile {
 }
 .copyright {
     float:left;
-    top: 40px;
+    top: 20px;
     position:relative;
 }
 .copyright .fa {
@@ -164,15 +166,13 @@ footer .contact .fa-mobile {
 }
 .copyright-text {
     position:relative;
-    font-size: 25px;
+    font-size: 18px;
     font-style:italic;
 }
 .contact-heaader {
     font-size: 28px;
 }
 .sponsor {
-    float:left;
-    margin-left:10px;
     margin-top:30px;
     box-shadow: 1px 1px 10px #ccc;
     background: #aaa;
@@ -181,14 +181,14 @@ footer .contact .fa-mobile {
     padding-top:60px;
     text-shadow: 1px 1px 1px #222;
     color:#fff;
+    float:left;
 }
 .slogan {
     font-size:30px;
     text-shadow: 1px 1px 1px #ccc;
 }
 .sponsor-A {
-    padding-top:80px;
-    width: 850px;
+    width: 100%;
     height: 280px;
 }
 .sponsor-B {
@@ -196,4 +196,5 @@ footer .contact .fa-mobile {
     padding-top:60px;
     width: 510px;
     height:220px;
+    margin-left:10px;
 }
