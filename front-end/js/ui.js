@@ -5,7 +5,7 @@ $(window).resize(function () {
     footer();
 });
 function footer () {
-    if ($(window).height() > $('.container-fluid').height() +100) {
+    if ($(window).height() > $('body').height() +100) {
         $('footer').css('position', 'fixed');
         $('footer').css('bottom', '0');
     }
