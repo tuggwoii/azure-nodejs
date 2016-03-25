@@ -217,19 +217,22 @@ footer .contact .fa-mobile {
 .forum ul li a .fa {
     margin-right:10px;
     float:left;
+    margin-top:25px;
 }
 .forum ul li .topic-name {
     display:block;
 }
 .forum ul li .info {
     float:right;
+    margin-top:5px
 }
 .forum ul li .topic {
     float:left;
+    margin-left:20px;
 }
-.forum ul li .info span {
+.forum ul li .info span.block {
     display:block;
-    font-size:18px;
+    font-size:20px;
     font-weight:normal;
 }
 .forum ul li .info label {
