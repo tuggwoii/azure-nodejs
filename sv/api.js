@@ -4,6 +4,7 @@ var bcrypt = require('bcrypt-nodejs');
 var User = require('./users');
 var authorize = require('./auth');
 shortid.characters('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ$@');
+
 module.exports = function () {
     var express = require('express');
     var app = express();
@@ -230,8 +231,8 @@ module.exports = function () {
     });
 
     app.post('/categories', function (req, res) {
-        if (req.body.name) {
-            var sid = req.body.name;
+        if (req.body.name && req.body.sid) {
+            var sid = req.body.sid;
             sid = replaceAll(sid, '(', '');
             sid = replaceAll(sid, ')', '');
             sid = replaceAll(sid, '.', '');
@@ -243,7 +244,7 @@ module.exports = function () {
             var category = {
                 name: req.body.name,
                 sid: sid,
-                description: req.body.description? req.body.description:''
+                description: req.body.description ? req.body.description : ''
             };
             models.Category.create(category, { isNewRecord: true })
             .then(function (model) {
@@ -253,7 +254,21 @@ module.exports = function () {
             });
         }
         else {
-            responseMessage(res, 'Name is required');
+            responseMessage(res, 'name and sid is required');
+        }
+    });
+
+    app.delete('/categories/:id', function (req, res) {
+        if (req.params.id) {
+            models.Category.destroy({ where: { id: req.params.id } })
+            .then(function (model) {
+                responseObject(res, model);
+            }).catch(function (err) {
+                responseError(res, err.message);
+            });
+        }
+        else {
+            responseMessage(res, 'id is required');
         }
     });
 

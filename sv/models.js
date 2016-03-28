@@ -81,6 +81,14 @@ var Category = sequelize.define('category', {
         type: Sequelize.STRING,
         field: 'description'
     },
+    icon: {
+        type: Sequelize.STRING,
+        field: 'icon'
+    },
+    color: {
+        type: Sequelize.STRING,
+        field: 'color'
+    },
     createdAt: {
         type: Sequelize.DATE,
         field: 'createdAt'
@@ -167,6 +175,7 @@ Topic.belongsTo(User, { foreignKey: 'post_by' });
 Topic.belongsTo(Category, { foreignKey: 'topic_category' });
 Comment.belongsTo(User, { foreignKey: 'post_by' });
 Comment.belongsTo(Topic, { foreignKey: 'topic_id' });
+
 exports.User = User;
 exports.Role = Role;
 exports.Category = Category;
